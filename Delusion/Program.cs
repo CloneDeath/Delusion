@@ -1,8 +1,11 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 using Delusion.Angles;
 using Delusion.Collision;
+using Delusion.Collision.Shapes;
 using Delusion.Illusion.Format;
+using Delusion.Renderers;
 
 namespace Delusion {
 	public class Program {
@@ -24,10 +27,18 @@ namespace Delusion {
 					Radius = 0.5f
 				}
 			};
-			
-			var renderer = new DepthRenderer();
-			var image = renderer.RenderSceneWithCamera(scene, camera);
-			image.SaveAsPortablePixMap("out.ppm");
+
+			var renderers = new Dictionary<IRenderer, string> {
+				{ new DepthRenderer(), "depth" },
+				{ new HitRenderer(), "hit" },
+				{ new ColorRenderer(), "color" }
+			};
+
+			foreach (var rendererInfo in renderers) {
+				var image = rendererInfo.Key.RenderSceneWithCamera(scene, camera);
+				image.SaveAsPortablePixMap(rendererInfo.Value + ".ppm");
+			}
+
 		}
 	}
 }

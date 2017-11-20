@@ -1,8 +1,8 @@
 ﻿using Delusion.Collision;
 using Delusion.Illusion;
 
-namespace Delusion {
-	public class DepthRenderer {
+namespace Delusion.Renderers {
+	public class DepthRenderer : IRenderer {
 		public Picture RenderSceneWithCamera(Scene scene, PerspectiveCamera camera) {
 			var depth = new DepthMap(camera.Resolution);
 			foreach (var pixelRay in camera.GetPixelRays()) {

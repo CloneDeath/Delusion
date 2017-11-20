@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Delusion {
+namespace Delusion.Renderers {
 	public class DepthMap {
 		private readonly float?[,] _depths;
 		public DepthMap(Size resolution) {

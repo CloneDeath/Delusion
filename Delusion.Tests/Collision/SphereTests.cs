@@ -1,5 +1,6 @@
 using System.Numerics;
 using Delusion.Collision;
+using Delusion.Collision.Shapes;
 using FluentAssertions;
 using Xunit;
 

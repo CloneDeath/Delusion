@@ -2,12 +2,13 @@
 using System.Numerics;
 using Delusion.Extensions;
 
-namespace Delusion.Collision {
+namespace Delusion.Collision.Shapes {
 	public class Sphere : IRenderable {
 		public Vector3 Postion { get; set; }
 		public float Radius { get; set; }
+		public Material Material { get; set; } = new Material();
 
-		public IIntersectionInformation CalculateIntersection(Ray line) {
+		public ITraceInformation CalculateIntersection(Ray line) {
 			var relativePosition = Postion - line.Origin;
 
 			var sphereInRayspace = Vector3.Dot(relativePosition, line.Direction.Normalized());
@@ -19,7 +20,8 @@ namespace Delusion.Collision {
 			var backdistanceInRaySpace = MathF.Sqrt(MathF.Pow(Radius, 2) - MathF.Pow(closestDistance, 2));
 			var nearCollisionInRaySpace = sphereInRayspace - backdistanceInRaySpace;
 
-			return new Intersection(line.Origin + Vector3.Multiply(line.Direction.Normalized(), nearCollisionInRaySpace));
+			var hotPosition = line.Origin + Vector3.Multiply(line.Direction.Normalized(), nearCollisionInRaySpace);
+			return new Intersection(hotPosition, line, Material);
 		}
 	}
 }
