@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.0.0
+MinimumVisualStudioVersion = 10.0.0.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delusion", "Delusion/Delusion.csproj", "{F30FB309-7959-428D-93CB-1AB177ACD70B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delusion.Tests", "Delusion.Tests\Delusion.Tests.csproj", "{29B0FF8F-7C7A-498F-BA27-EE975FAA8A78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delusion.Illusion", "Delusion.Illusion\Delusion.Illusion.csproj", "{7187516D-252B-4C47-8615-DC5AA26D7FDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F30FB309-7959-428D-93CB-1AB177ACD70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F30FB309-7959-428D-93CB-1AB177ACD70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F30FB309-7959-428D-93CB-1AB177ACD70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F30FB309-7959-428D-93CB-1AB177ACD70B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B0FF8F-7C7A-498F-BA27-EE975FAA8A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B0FF8F-7C7A-498F-BA27-EE975FAA8A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B0FF8F-7C7A-498F-BA27-EE975FAA8A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B0FF8F-7C7A-498F-BA27-EE975FAA8A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7187516D-252B-4C47-8615-DC5AA26D7FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7187516D-252B-4C47-8615-DC5AA26D7FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7187516D-252B-4C47-8615-DC5AA26D7FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7187516D-252B-4C47-8615-DC5AA26D7FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
