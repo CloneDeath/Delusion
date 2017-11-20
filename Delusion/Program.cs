@@ -9,7 +9,7 @@ namespace Delusion {
 		public static void Main() {
 			var camera = new PerspectiveCamera {
 				HorizontalFieldOfView = new Circles(0.25f),
-				Resolution = new Size(100, 100),
+				Resolution = new Size(1000, 1000),
 				Position = new Vector3(0, 0, 5),
 				Direction = -Vector3.UnitZ,
 				Up = Vector3.UnitY
@@ -25,7 +25,7 @@ namespace Delusion {
 				}
 			};
 			
-			var renderer = new SceneRenderer();
+			var renderer = new DepthRenderer();
 			var image = renderer.RenderSceneWithCamera(scene, camera);
 			image.SaveAsPortablePixMap("out.ppm");
 		}

@@ -20,5 +20,9 @@ namespace Delusion.Illusion {
 		public void SetColor(Point pixel, RgbColor color) {
 			_pixels[pixel.X, pixel.Y] = color;
 		}
+
+		public void SetColor(int x, int y, RgbColor color) {
+			SetColor(new Point(x, y), color);
+		}
 	}
 }

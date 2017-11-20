@@ -19,6 +19,9 @@ namespace Delusion {
 		public Vector3 Position { get; set; }
 		public Vector3 Direction { get; set; }
 		public Vector3 Up { get; set; }
+		
+		public int Width => Resolution.Width;
+		public int Height => Resolution.Height;
 
 		public IEnumerable<IPixelRay> GetPixelRays() {
 			for (var x = 0; x < Resolution.Width; x++)
@@ -34,15 +37,13 @@ namespace Delusion {
 		}
 
 		private Vector3 GetDirection(int x, int y) {
-			var left = Vector3.Cross(Up, Direction).Normalized();
 			var forward = Direction.Normalized();
 			var up = Up.Normalized();
+			var left = Vector3.Cross(up, forward).Normalized();
 			var topLeft = forward + (left * ScreenWidth / 2) + (up * ScreenHeight / 2);
-			var scaleX = x * 1.0f / Resolution.Width;
-			var scaleY = y * 1.0f / Resolution.Height;
-			var unitX = ScreenWidth;
-			var unitY = ScreenHeight;
-			return topLeft + (-up * scaleY * unitY) + (-left * scaleX * unitX);
+			var scaleX = x * 1.0f / Width;
+			var scaleY = y * 1.0f / Height;
+			return topLeft + (-up * scaleY * ScreenHeight) + (-left * scaleX * ScreenWidth);
 		}
 	}
 }
