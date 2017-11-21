@@ -35,12 +35,12 @@ namespace Delusion.Renderers {
 			return picture;
 		}
 
-		private float GetIntensity(float? depth, float minDepth, float maxDepth) {
+		protected virtual float GetIntensity(float? depth, float minDepth, float maxDepth) {
 			if (depth == null) return 0;
 			return 1 - (depth.Value - minDepth) / (maxDepth - minDepth);
 		}
 
-		private static float? GetDepth(Scene scene, Ray ray) {
+		protected virtual float? GetDepth(Scene scene, Ray ray) {
 			float? minDepth = null;
 			foreach (var entity in scene) {
 				var hit = entity.CalculateIntersection(ray);

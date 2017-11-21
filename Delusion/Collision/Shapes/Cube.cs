@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 
 namespace Delusion.Collision.Shapes {
 	public class Cube : IRenderable {
@@ -6,7 +7,7 @@ namespace Delusion.Collision.Shapes {
 		public Material Material { get; set; } = new Material();
 		public Vector3 Origin => Transformation.Translation;
 
-		private Quad[] GetTriangles() {
+		private IEnumerable<Quad> GetTriangles() {
 			var transform = Matrix4x4.CreateTranslation(-0.5f, -0.5f, -0.5f) * Transformation;
 			var zero = Vector3.Transform(Vector3.Zero, transform);
 			var x = Vector3.Transform(Vector3.UnitX, transform);

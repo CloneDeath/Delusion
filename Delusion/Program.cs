@@ -51,7 +51,7 @@ namespace Delusion {
 					}
 				},
 				new Cube {
-					Transformation = Matrix4x4.CreateScale(-11),
+					Transformation = Matrix4x4.CreateScale(-11)
 				}
 			};
 

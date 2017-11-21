@@ -40,10 +40,10 @@ namespace Delusion {
 			var forward = Direction.Normalized();
 			var up = Up.Normalized();
 			var left = Vector3.Cross(up, forward).Normalized();
-			var topLeft = forward + (left * ScreenWidth / 2) + (up * ScreenHeight / 2);
+			var topLeft = forward + left * ScreenWidth / 2 + up * ScreenHeight / 2;
 			var scaleX = x * 1.0f / Width;
 			var scaleY = y * 1.0f / Height;
-			return topLeft + (-up * scaleY * ScreenHeight) + (-left * scaleX * ScreenWidth);
+			return topLeft + -up * scaleY * ScreenHeight + -left * scaleX * ScreenWidth;
 		}
 	}
 }
