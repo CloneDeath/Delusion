@@ -41,15 +41,10 @@ namespace Delusion.Renderers {
 		}
 
 		protected virtual float? GetDepth(Scene scene, Ray ray) {
-			float? minDepth = null;
-			foreach (var entity in scene) {
-				var hit = entity.CalculateIntersection(ray);
-				if (!hit.Intersects) continue;
-
-				var depth = (hit.IntersectionPosition - ray.Origin).Length();
-				if (minDepth == null || depth < minDepth) minDepth = depth;
-			}
-			return minDepth;
+			var hit = scene.Trace(ray);
+			return hit.Intersects 
+				? (float?) hit.Distance 
+				: null;
 		}
 	}
 }

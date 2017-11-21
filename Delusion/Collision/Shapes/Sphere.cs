@@ -12,6 +12,7 @@ namespace Delusion.Collision.Shapes {
 
 		public ITraceInformation CalculateIntersection(Ray line) {
 			var relativePosition = Postion - line.Origin;
+			if (relativePosition.Length() <= Radius) return new NoIntersection();
 
 			var sphereInRayspace = Vector3.Dot(relativePosition, line.Direction.Normalized());
 			if (sphereInRayspace < 0) return new NoIntersection();

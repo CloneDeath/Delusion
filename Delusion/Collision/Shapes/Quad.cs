@@ -23,7 +23,9 @@ namespace Delusion.Collision.Shapes {
 		public ITraceInformation CalculateIntersection(Ray line) {
 			var edge1 = Point1 - Point0;
 			var edge2 = Point2 - Point0;
-
+			var normal = Vector3.Cross(edge1, edge2).Normalized();
+			if (Vector3.Dot(normal, line.Direction) >= 0) return new NoIntersection();
+			
 			var height = Vector3.Cross(line.Direction, edge2);
 			var alpha = Vector3.Dot(height, edge1);
 
@@ -46,7 +48,7 @@ namespace Delusion.Collision.Shapes {
 			var intersection = line.Origin + line.Direction * time;
 			
 			return new Intersection(intersection, line, Material, this) {
-				Normal = Vector3.Cross(edge1, edge2).Normalized()
+				Normal = normal
 			};
 		}
 	}

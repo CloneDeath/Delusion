@@ -12,7 +12,7 @@ namespace Delusion.Collision {
 			IntersectionPosition = position;
 			Entity = entity;
 		}
-		public bool Intersects => true;
+		public bool Intersects => Distance * Distance > 0;
 		public Vector3 IntersectionPosition { get; }
 		public Vector3 Normal { get; set; } = Vector3.Zero;
 		public float Distance => (_source.Origin - IntersectionPosition).Length();

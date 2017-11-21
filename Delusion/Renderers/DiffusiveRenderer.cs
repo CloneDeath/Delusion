@@ -1,24 +1,24 @@
-﻿using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
 using Delusion.Collision;
 using Delusion.Extensions;
 using Delusion.Illusion;
 
 namespace Delusion.Renderers {
 	public class DiffusiveRenderer : BaseRenderer {
-		public int MaxDepth { get; set; } = 2;
+		public int MaxDepth { get; set; } = 10;
 
 		protected override RgbColor GetColor(Scene scene, Ray ray) {
-			return GetColor(scene, ray, MaxDepth, null);
+			return GetColor(scene, ray, MaxDepth);
 		}
 
-		public virtual RgbColor GetColor(Scene scene, Ray ray, int depth, IRenderable ignore) {
-			if (depth <= 0) return RgbColor.Black;
+		public virtual RgbColor GetColor(Scene scene, Ray ray, int depth) {
+			if (depth < 0) return RgbColor.Black;
 			
-			var hit = scene.Without(ignore).Trace(ray);
+			var hit = scene.Trace(ray);
+			var distanceSquared = hit.Distance * hit.Distance;
+			
 			if (!hit.Intersects) return RgbColor.Black;
 
-			var distanceSquared = hit.Distance * hit.Distance;
 			var emission = RgbColor.Black;
 			
 			if (hit.Luminosity > 0) {
@@ -26,18 +26,18 @@ namespace Delusion.Renderers {
 				emission = hit.Color * hit.Luminosity * intensity / distanceSquared;
 			}
 
-			var reflection = new Ray {
-				Direction = ray.Direction.ReflectionGivenNormal(hit.Normal).Normalized(),
-				Origin = hit.IntersectionPosition
-			};
-			var otherColor = GetColor(scene, reflection, depth - 1, hit.Entity) / distanceSquared;
-			otherColor = scene.Without(hit.Entity)
-				.Select(entity => new Ray {
+			var otherColor = RgbColor.Black;
+			foreach (var entity in scene) {
+				if (entity == hit.Entity) continue;
+				var check = new Ray {
 					Direction = (entity.Origin - hit.IntersectionPosition).Normalized(),
 					Origin = hit.IntersectionPosition
-				})
-				.Aggregate(otherColor, (current, check) => current + GetColor(scene, check, depth - 1, hit.Entity));
+				};
 
+				var deflectionStrength = Vector3.Dot(check.Direction, hit.Normal);
+				if (deflectionStrength < 0) continue;
+				otherColor += GetColor(scene, check, depth - 1) * deflectionStrength / distanceSquared;
+			}
 			return emission + hit.Color * otherColor;
 		}
 	}
