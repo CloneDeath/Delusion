@@ -7,7 +7,7 @@ namespace Delusion.Extensions {
 		}
 
 		public static Vector3 ReflectionGivenNormal(this Vector3 self, Vector3 normal) {
-			return self - 2 * Vector3.Dot(self, normal) * normal;
+			return Vector3.Reflect(self, normal);
 		}
 	}
 }

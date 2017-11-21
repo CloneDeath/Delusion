@@ -2,11 +2,18 @@
 using Delusion.Collision;
 using Delusion.Extensions;
 using Delusion.Illusion;
+using Delusion.Random;
 
 namespace Delusion.Renderers {
 	public class DiffusiveRenderer : BaseRenderer {
-		public int MaxDepth = 10;
-		
+		public int MaxDepth { get; set; } = 10;
+		public int Scattering { get; set; } = 7;
+		private IRandom _random;
+
+		public DiffusiveRenderer(IRandom random) {
+			_random = random;
+		}
+
 		protected override RgbColor GetColor(Scene scene, Ray ray) {
 			return GetColor(scene, ray, MaxDepth, null);
 		}
@@ -29,10 +36,16 @@ namespace Delusion.Renderers {
 				Direction = ray.Direction.ReflectionGivenNormal(hit.Normal).Normalized(),
 				Origin = hit.IntersectionPosition
 			};
-
 			var otherColor = GetColor(scene, reflection, depth - 1, hit.Entity) / distanceSquared;
+			foreach (var scatter in _random.GetDomes(hit.Normal, Scattering)) {
+				var scatterRay = new Ray {
+					Origin = hit.IntersectionPosition,
+					Direction = scatter
+				};
+				otherColor += GetColor(scene, scatterRay, depth - 1, hit.Entity) / distanceSquared;
+			}
 
-			return emission + otherColor;
+			return emission + hit.Color * (otherColor / (Scattering + 1));
 		}
 	}
 }
