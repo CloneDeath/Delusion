@@ -1,5 +1,6 @@
 ﻿using Delusion.Collision;
 using Delusion.Illusion;
+using Delusion.Renderers.DataMaps;
 
 namespace Delusion.Renderers {
 	public class DepthRenderer : IRenderer {

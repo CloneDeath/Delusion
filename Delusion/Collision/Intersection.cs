@@ -13,8 +13,10 @@ namespace Delusion.Collision {
 		}
 		public bool Intersects => true;
 		public Vector3 IntersectionPosition { get; }
+		public Vector3 Normal { get; set; } = Vector3.Zero;
 		public float Distance => (_source.Origin - IntersectionPosition).Length();
 
 		public RgbColor Color => _material.Color;
+		public float Luminosity => _material.Luminosity;
 	}
 }

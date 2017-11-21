@@ -20,8 +20,10 @@ namespace Delusion.Collision.Shapes {
 			var backdistanceInRaySpace = MathF.Sqrt(MathF.Pow(Radius, 2) - MathF.Pow(closestDistance, 2));
 			var nearCollisionInRaySpace = sphereInRayspace - backdistanceInRaySpace;
 
-			var hotPosition = line.Origin + Vector3.Multiply(line.Direction.Normalized(), nearCollisionInRaySpace);
-			return new Intersection(hotPosition, line, Material);
+			var hitPosition = line.Origin + Vector3.Multiply(line.Direction.Normalized(), nearCollisionInRaySpace);
+			return new Intersection(hitPosition, line, Material) {
+				Normal = (hitPosition - Postion).Normalized()
+			};
 		}
 	}
 }

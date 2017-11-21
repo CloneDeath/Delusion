@@ -22,6 +22,8 @@ namespace Delusion.Illusion.Format {
 		}
 
 		private static byte FloatChannelToByte(float color) {
+			if (color < 0) return 0;
+			if (color > 1) return 255;
 			return (byte)(color * 255);
 		}
 
