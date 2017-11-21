@@ -14,7 +14,7 @@ namespace Delusion {
 		public static void Main() {
 			var camera = new PerspectiveCamera {
 				HorizontalFieldOfView = new Circles(0.25f),
-				Resolution = new Size(300, 300),
+				Resolution = new Size(100, 100),
 				Position = new Vector3(0, 0, 5),
 				Direction = -Vector3.UnitZ,
 				Up = Vector3.UnitY
@@ -49,6 +49,9 @@ namespace Delusion {
 						Color = RgbColor.White,
 						Luminosity = 100
 					}
+				},
+				new Cube {
+					Transformation = Matrix4x4.CreateScale(-11),
 				}
 			};
 
