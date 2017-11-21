@@ -14,16 +14,16 @@ namespace Delusion.Collision.Shapes {
 			var relativePosition = Postion - line.Origin;
 			if (relativePosition.Length() <= Radius) return new NoIntersection();
 
-			var sphereInRayspace = Vector3.Dot(relativePosition, line.Direction.Normalized());
+			var sphereInRayspace = Vector3.Dot(relativePosition, line.Direction);
 			if (sphereInRayspace < 0) return new NoIntersection();
 
-			var closestDistance = MathF.Sqrt(relativePosition.LengthSquared() - MathF.Pow(sphereInRayspace, 2));
+			var closestDistance = MathF.Sqrt(Math.Abs(relativePosition.LengthSquared() - MathF.Pow(sphereInRayspace, 2)));
 			if (closestDistance > Radius) return new NoIntersection();
 
 			var backdistanceInRaySpace = MathF.Sqrt(MathF.Pow(Radius, 2) - MathF.Pow(closestDistance, 2));
 			var nearCollisionInRaySpace = sphereInRayspace - backdistanceInRaySpace;
 
-			var hitPosition = line.Origin + Vector3.Multiply(line.Direction.Normalized(), nearCollisionInRaySpace);
+			var hitPosition = line.Origin + Vector3.Multiply(line.Direction, nearCollisionInRaySpace);
 			return new Intersection(hitPosition, line, Material, this) {
 				Normal = (hitPosition - Postion).Normalized()
 			};

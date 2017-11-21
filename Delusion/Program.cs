@@ -60,7 +60,7 @@ namespace Delusion {
 				{new HitRenderer(), "hit"},
 				{new ColorRenderer(), "color"},
 				{new NormalRenderer(), "normal"},
-				{new DiffusiveRenderer { MaxDepth = 1 }, "diffuse"}
+				{new DiffusiveRenderer { MaxDepth = 5 }, "diffuse"}
 			};
 
 			const string outputDirectory = "out";
