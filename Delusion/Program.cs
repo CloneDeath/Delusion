@@ -7,14 +7,11 @@ using Delusion.Collision;
 using Delusion.Collision.Shapes;
 using Delusion.Illusion;
 using Delusion.Illusion.Format;
-using Delusion.Random;
 using Delusion.Renderers;
 
 namespace Delusion {
 	public class Program {
 		public static void Main() {
-			var random = new DefaultRandom();
-			
 			var camera = new PerspectiveCamera {
 				HorizontalFieldOfView = new Circles(0.25f),
 				Resolution = new Size(100, 100),
@@ -63,7 +60,7 @@ namespace Delusion {
 				{new HitRenderer(), "hit"},
 				{new ColorRenderer(), "color"},
 				{new NormalRenderer(), "normal"},
-				{new DiffusiveRenderer(random) { MaxDepth = 10 }, "diffuse"}
+				{new DiffusiveRenderer { MaxDepth = 10 }, "diffuse"}
 			};
 
 			const string outputDirectory = "out";

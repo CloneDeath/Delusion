@@ -3,13 +3,13 @@ using System.Numerics;
 using Delusion.Extensions;
 
 namespace Delusion.Collision.Shapes {
-	public class Triangle : IRenderable {
+	public class Quad : IRenderable {
 		public Vector3 Point0 { get; set; }
 		public Vector3 Point1 { get; set; }
 		public Vector3 Point2 { get; set; }
 		
 		public Material Material { get; set; } = new Material();
-		public Vector3 Origin => Vector3.Lerp(Vector3.Lerp(Point1, Point2, 0.5f), Point0, 0.5f);
+		public Vector3 Origin => Vector3.Lerp(Point1, Point2, 0.5f);
 
 		public Vector3[] Points {
 			get => new[] {Point0, Point1, Point2};
@@ -38,7 +38,7 @@ namespace Delusion.Collision.Shapes {
 			var qHeight = Vector3.Cross(sRelativeOrigin, edge1);
 			var v = flow * Vector3.Dot(line.Direction, qHeight);
 			
-			if (v < 0 || u + v > 1) return new NoIntersection();
+			if (v < 0 || v > 1) return new NoIntersection();
 
 			var time = flow * Vector3.Dot(edge2, qHeight);
 			if (time < 0) return new NoIntersection();

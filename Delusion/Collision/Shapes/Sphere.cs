@@ -8,6 +8,8 @@ namespace Delusion.Collision.Shapes {
 		public float Radius { get; set; }
 		public Material Material { get; set; } = new Material();
 
+		public Vector3 Origin => Postion;
+
 		public ITraceInformation CalculateIntersection(Ray line) {
 			var relativePosition = Postion - line.Origin;
 
