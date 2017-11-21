@@ -9,5 +9,6 @@ namespace Delusion.Collision {
 		float Distance { get; }
 		RgbColor Color { get; }
 		float Luminosity { get; }
+		IRenderable Entity { get; }
 	}
 }

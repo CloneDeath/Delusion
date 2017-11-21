@@ -21,7 +21,7 @@ namespace Delusion.Collision.Shapes {
 			var nearCollisionInRaySpace = sphereInRayspace - backdistanceInRaySpace;
 
 			var hitPosition = line.Origin + Vector3.Multiply(line.Direction.Normalized(), nearCollisionInRaySpace);
-			return new Intersection(hitPosition, line, Material) {
+			return new Intersection(hitPosition, line, Material, this) {
 				Normal = (hitPosition - Postion).Normalized()
 			};
 		}

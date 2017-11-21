@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Delusion.Collision;
 
 namespace Delusion {
@@ -18,6 +19,13 @@ namespace Delusion {
 				}
 			}
 			return closestHit ?? new NoIntersection();
+		}
+
+		public Scene Without(params IRenderable[] ignore) {
+			var elements = this.Where(e => !ignore.Contains(e)).ToList();
+			var child = new Scene();
+			child.AddRange(elements);
+			return child;
 		}
 	}
 }

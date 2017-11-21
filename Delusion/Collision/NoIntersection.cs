@@ -9,5 +9,6 @@ namespace Delusion.Collision {
 		public float Distance => float.MaxValue;
 		public RgbColor Color => RgbColor.Black;
 		public float Luminosity => 0;
+		public IRenderable Entity => null;
 	}
 }

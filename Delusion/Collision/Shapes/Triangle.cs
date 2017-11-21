@@ -44,7 +44,7 @@ namespace Delusion.Collision.Shapes {
 
 			var intersection = line.Origin + line.Direction * time;
 			
-			return new Intersection(intersection, line, Material) {
+			return new Intersection(intersection, line, Material, this) {
 				Normal = Vector3.Cross(edge1, edge2).Normalized()
 			};
 		}

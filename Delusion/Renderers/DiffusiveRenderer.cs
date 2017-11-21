@@ -8,13 +8,13 @@ namespace Delusion.Renderers {
 		public int MaxDepth = 10;
 		
 		protected override RgbColor GetColor(Scene scene, Ray ray) {
-			return GetColor(scene, ray, MaxDepth);
+			return GetColor(scene, ray, MaxDepth, null);
 		}
 
-		public RgbColor GetColor(Scene scene, Ray ray, int depth) {
+		public RgbColor GetColor(Scene scene, Ray ray, int depth, IRenderable ignore) {
 			if (depth <= 0) return RgbColor.Black;
 			
-			var hit = scene.Trace(ray);
+			var hit = scene.Without(ignore).Trace(ray);
 			if (!hit.Intersects) return RgbColor.Black;
 
 			var distanceSquared = hit.Distance * hit.Distance;
@@ -30,7 +30,7 @@ namespace Delusion.Renderers {
 				Origin = hit.IntersectionPosition
 			};
 
-			var otherColor = GetColor(scene, reflection, depth - 1) / distanceSquared;
+			var otherColor = GetColor(scene, reflection, depth - 1, hit.Entity) / distanceSquared;
 
 			return emission + otherColor;
 		}

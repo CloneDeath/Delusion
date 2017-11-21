@@ -6,10 +6,11 @@ namespace Delusion.Collision {
 		private readonly Ray _source;
 		private readonly Material _material;
 
-		public Intersection(Vector3 position, Ray source, Material material) {
+		public Intersection(Vector3 position, Ray source, Material material, IRenderable entity) {
 			_material = material;
 			_source = source;
 			IntersectionPosition = position;
+			Entity = entity;
 		}
 		public bool Intersects => true;
 		public Vector3 IntersectionPosition { get; }
@@ -18,5 +19,6 @@ namespace Delusion.Collision {
 
 		public RgbColor Color => _material.Color;
 		public float Luminosity => _material.Luminosity;
+		public IRenderable Entity { get; }
 	}
 }

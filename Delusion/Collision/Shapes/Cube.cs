@@ -46,7 +46,6 @@ namespace Delusion.Collision.Shapes {
 		public ITraceInformation CalculateIntersection(Ray line) {
 			ITraceInformation bestHit = null;
 			foreach (var triangle in GetTriangles()) {
-				triangle.Material = Material;
 				var hit = triangle.CalculateIntersection(line);
 				if (!hit.Intersects) continue;
 
@@ -57,7 +56,10 @@ namespace Delusion.Collision.Shapes {
 
 				if (hit.Distance < bestHit.Distance) bestHit = hit;
 			}
-			return bestHit ?? new NoIntersection();
+			if (bestHit == null) return new NoIntersection();
+			return new Intersection(bestHit.IntersectionPosition, line, Material, this) {
+				Normal = bestHit.Normal
+			};
 		}
 	}
 }
