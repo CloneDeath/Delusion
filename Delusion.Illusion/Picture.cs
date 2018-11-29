@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 
 namespace Delusion.Illusion {
-	public class Picture {
+	public partial class Picture {
 		private readonly RgbColor[,] _pixels;
 		
 		public Picture(Size resolution) {

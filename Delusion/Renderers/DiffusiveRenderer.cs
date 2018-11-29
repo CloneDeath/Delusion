@@ -15,7 +15,6 @@ namespace Delusion.Renderers {
 			if (depth < 0) return RgbColor.Black;
 			
 			var hit = scene.Trace(ray);
-			var distanceSquared = hit.Distance * hit.Distance;
 			
 			if (!hit.Intersects) return RgbColor.Black;
 
@@ -23,7 +22,7 @@ namespace Delusion.Renderers {
 			
 			if (hit.Luminosity > 0) {
 				var intensity = Vector3.Dot(hit.Normal.Normalized(), -ray.Direction);
-				emission = hit.Color * hit.Luminosity * intensity / distanceSquared;
+				emission = hit.Color * hit.Luminosity * intensity;
 			}
 
 			var otherColor = RgbColor.Black;
@@ -36,9 +35,10 @@ namespace Delusion.Renderers {
 
 				var deflectionStrength = Vector3.Dot(check.Direction, hit.Normal);
 				if (deflectionStrength < 0) continue;
-				otherColor += GetColor(scene, check, depth - 1) * deflectionStrength / distanceSquared;
+				otherColor += GetColor(scene, check, depth - 1) * deflectionStrength;
 			}
-			return emission + hit.Color * otherColor;
+			var distanceSquared = (ray.Origin - hit.IntersectionPosition).LengthSquared();
+			return (emission + hit.Color * otherColor) / distanceSquared;
 		}
 	}
 }
