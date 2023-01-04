@@ -20,7 +20,7 @@ namespace Delusion {
 		}
 		
 		public ITraceInformation Trace(Ray ray) {
-			ITraceInformation closestHit = null;
+			ITraceInformation? closestHit = null;
 			foreach (var entity in this) {
 				var hitInfo = entity.CalculateIntersection(ray);
 				if (!hitInfo.Intersects) continue;

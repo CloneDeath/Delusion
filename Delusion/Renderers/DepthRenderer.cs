@@ -18,9 +18,10 @@ namespace Delusion.Renderers {
 			
 			for (var x = 0; x < depth.Width; x++)
 			for (var y = 0; y < depth.Height; y++) {
-				if (depth[x, y] == null) continue;
-				
-				var currentDepth = depth[x, y].Value;
+				var depthValue = depth[x, y];
+				if (depthValue == null) continue;
+
+				var currentDepth = depthValue.Value;
 				if (currentDepth > maxDepth) maxDepth = currentDepth;
 				if (currentDepth < minDepth) minDepth = currentDepth;
 			}
@@ -43,7 +44,7 @@ namespace Delusion.Renderers {
 		protected virtual float? GetDepth(Scene scene, Ray ray) {
 			var hit = scene.Trace(ray);
 			return hit.Intersects 
-				? (float?) hit.Distance 
+				? hit.Distance 
 				: null;
 		}
 	}

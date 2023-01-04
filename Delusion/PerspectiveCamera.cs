@@ -10,8 +10,8 @@ namespace Delusion {
 	public class PerspectiveCamera {
 		public float ScreenWidth => MathF.Acos(HorizontalFieldOfView.InRadians() / 2) * 2;
 		public float ScreenHeight => ScreenWidth * VerticalAspectRatio;
-		
-		public IAngle HorizontalFieldOfView { get; set; }
+
+		public IAngle HorizontalFieldOfView { get; set; } = new Circles(0.25f);
 		public IAngle VerticalFieldOfView => new Radians(MathF.Sin(ScreenHeight / 2) * 2);
 		
 		public float VerticalAspectRatio => Resolution.Height * 1.0f / Resolution.Width;
@@ -26,11 +26,10 @@ namespace Delusion {
 		public IEnumerable<IPixelRay> GetPixelRays() {
 			for (var x = 0; x < Resolution.Width; x++)
 			for (var y = 0; y < Resolution.Height; y++) {
-				yield return new PixelRay {
-					Ray = new Ray {
-						Origin = Position,
-						Direction = GetDirection(x, y)
-					},
+				yield return new PixelRay(new Ray {
+					Origin = Position,
+					Direction = GetDirection(x, y)
+				}) {
 					Position = new Point(x, y)
 				};
 			}
